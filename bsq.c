@@ -7,6 +7,49 @@
 
 #include "include/my.h"
 
+int line_checking(char *file)
+{
+    int length = 0;
+    int baselength = 0;
+
+    while (*file != '\n')
+        file++;
+    file++;
+    for (; *file != '\n'; file++, baselength++);
+    file++;
+    while (*file != '\0') {
+        length = 0;
+        for (; *file != '\n'; file++, length++);
+        if (length != baselength)
+            return (84);
+        file++;
+    }
+    return (0);
+}
+
+int error_handling(char *file)
+{
+    int i = 0;
+    int count = 0;
+
+    for (int a = 0; file[a]; a++) {
+        if (file[a] == '\n')
+            count++;
+    }
+    if (my_getnbr(file) != (count - 1))
+        return (84);
+    for (; file[i] != '\n'; i++) {
+        if (file[i] > '9' || file[i] < '0')
+            return (84);
+    }
+    i++;
+    for (; file[i]; i++) {
+        if (file[i] != '.' && file[i] != 'o' && file[i] != '\n')
+            return (84);
+    }
+    return (0);
+}
+
 void print_map(char *file, biggest_t *biggest, int line, int length)
 {
     int count = 0;
@@ -56,8 +99,19 @@ int bsq(int **map, int line, int length, char *file)
 int main(int ac, char **av)
 {
     int length = 0;
-    char *file = open_file(av[1]);
-    int line = my_getnbr(file);
-    int **map = str_to_arr(file, line, &length);
-    return (bsq(map, line, length, file));
+    char *file;
+    int line;
+    int **map;
+
+    if (ac != 2)
+        return (84);
+    file = open_file(av[1]);
+    if (error_handling(file) == 84)
+        return (84);
+    line = my_getnbr(file);
+    if (line_checking(file) == 84)
+        return (84);
+    map = str_to_arr(file, line, &length);
+    bsq(map, line, length, file);
+    return (0);
 }

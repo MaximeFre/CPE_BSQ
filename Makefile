@@ -14,7 +14,7 @@ NAME = bsq
 all: 	$(NAME)
 
 $(NAME):
-	gcc -o $(NAME) $(SRC) -Iinclude -Wall -Wextra
+	gcc -o $(NAME) $(SRC) -O2 -Iinclude -Wall -Wextra
 
 clean:
 	rm -f $(OBJ)
