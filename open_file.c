@@ -53,5 +53,6 @@ char *open_file(char const *filepath)
     map = malloc(sizeof(char) * (size + 1));
     read(fd, map, size);
     map[size] = '\0';
+    free(buf);
     return (map);
 }

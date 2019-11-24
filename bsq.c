@@ -71,6 +71,7 @@ void print_map(char *file, biggest_t *biggest, int line, int length)
         }
     }
     write(1, file, (line * length + line));
+    free(biggest);
 }
 
 int bsq(int **map, int line, int length, char *file)
@@ -93,6 +94,7 @@ int bsq(int **map, int line, int length, char *file)
         }
     }
     print_map(file, biggest, line, length);
+    free(file);
     return (0);
 }
 
@@ -113,5 +115,9 @@ int main(int ac, char **av)
         return (84);
     map = str_to_arr(file, line, &length);
     bsq(map, line, length, file);
+    for (length = 0; map[length] != NULL; length++)
+        free(map[length]);
+    free(map[length]);
+    free(map);
     return (0);
 }
