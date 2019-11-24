@@ -30,7 +30,7 @@ int **str_to_arr(char *file, int nb, int *length)
     i++;
     for (int a = 0; a < nb; a++) {
         map[a] = malloc(sizeof(int) * (*length));
-        for(int z = 0; z < *length; i++, z++) {
+        for (int z = 0; z < *length; i++, z++) {
             if (file[i] == 'o')
                 map[a][z] = 0;
             else
