@@ -50,6 +50,8 @@ char *open_file(char const *filepath)
 
     if (stat(filepath, buf) == 0)
         size = buf->st_size;
+    else
+        return (NULL);
     map = malloc(sizeof(char) * (size + 1));
     read(fd, map, size);
     map[size] = '\0';
